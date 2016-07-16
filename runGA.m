@@ -16,14 +16,13 @@
 % along with this program.  If not, see <http://www.gnu.org/licenses/gpl-3.0.html>.
 % -----------------------------------------------------------------------------------
 
-OUTPUT_FILE_NAME = 'resultFromOut';
+OUTPUT_FILE_NAME = 'result';
 
 N_MAX_ITERS = 200;
 N_INDIVIDUALS = 80;
 N_REPETITIONS = 100;
 
-
-fprintf('\n\n======================     GA     ======================\n\n')
+fprintf('\n\n======================     AeroGA     ======================\n\n')
 
 solHistFromRepetitions = [];
 solHistCostFromRepetitions = [];
@@ -57,6 +56,6 @@ fprintf('\nObtained on iteration %d', bestSolIndex);
 fprintf('\nExecution time: %f seconds\n\n', executionTime);
 
 plotSols('Repetition Number', 'Solution Cost', 'Genetic Algorithm Performance', ...
-         solHistFromRepetitions, solHistCostFromRepetitions);
+         solHistCostFromRepetitions);
 
 fprintf('\n\n');

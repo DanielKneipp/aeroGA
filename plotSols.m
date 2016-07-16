@@ -16,9 +16,9 @@
 % along with this program.  If not, see <http://www.gnu.org/licenses/gpl-3.0.html>.
 % -----------------------------------------------------------------------------------
 
-function plotSols(xlabel_, ylabel_, title_, sols, solsCost)
+function plotSols(xlabel_, ylabel_, title_, solsCost)
     figure();
-    plot([1:size(sols, 1)]', solsCost, 'Linewidth', 2);
+    bar(solsCost);
     title(title_);
     xlabel(xlabel_);
     ylabel(ylabel_);

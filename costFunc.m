@@ -20,29 +20,31 @@ function cost = costFunc(solution)
     if containsNegative(solution)
         cost = 1e15;
     else
-        params = getParams(0);
-        program = 'distanceEQ';
-        command = [program ' ' num2str(solution)];
-        [ret, out] = system(command);
-
-        dists = getParams('Dist');
-        d = str2double(out);
         Cl = solution(1);
         Clmax = solution(2);
         Cp = solution(3);
+        
+        d = getDistance(Cl, Clmax, Cp);
+        
+        if ~isreal(d)
+            cost = 1e15;
+        else
+            params = getParams(0);
+            dists = getParams('Dist');
 
-        cost = ((d*100))/Cp^2;
+            cost = ((d*100))/Cp^2;
 
-        costRestrMax = 100 * max([0 (Cl - params(1,2))])^2 + ...
-                       100 * max([0 (Clmax - params(2,2))])^3 + ...
-                       10000 * max([0 (d - dists(2))])^3;
+            costRestrMax = 100 * max([0 (Cl - params(1,2))])^2 + ...
+                           100 * max([0 (Clmax - params(2,2))])^3 + ...
+                           10000 * max([0 (d - dists(2))])^3;
 
-        costRestrMin = 100 * max([0 ((-Cl) - (-params(1,1)))])^2 + ...
-                       100 * max([0 ((-Clmax) - (-params(2,1)))])^2 + ...
-                       1000 * max([0 ((-Cp) - (-params(3,1)))])^2 + ...
-                       10000 * max([0 ((-d) - (-dists(1)))])^2;
+            costRestrMin = 100 * max([0 ((-Cl) - (-params(1,1)))])^2 + ...
+                           100 * max([0 ((-Clmax) - (-params(2,1)))])^2 + ...
+                           1000 * max([0 ((-Cp) - (-params(3,1)))])^2 + ...
+                           10000 * max([0 ((-d) - (-dists(1)))])^2;
 
-        cost = cost * (1 + costRestrMax + costRestrMin);
+            cost = cost * (1 + costRestrMax + costRestrMin);
+        end
     end
 end
 
